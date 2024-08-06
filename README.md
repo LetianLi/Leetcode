@@ -1,6 +1,8 @@
-# leetcode
+# Leetcode
 
 This project uses Bun and hosts my solutions to Leetcode problems.
+
+To install Bun see the [Bun Docs](https://bun.sh/docs/installation)
 
 To install dependencies:
 
