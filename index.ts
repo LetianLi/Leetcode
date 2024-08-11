@@ -1,5 +1,6 @@
 import { Glob } from "bun";
 import { parseArgs } from "util";
+import { getTestInfo} from "./solutions/helpers/expect";
 
 // Parse args
 const { values, positionals } = parseArgs({
@@ -40,4 +41,12 @@ console.log(`Attempting to run file: '${latestFile.fileName}'`);
 console.log(`Last modified ${latestFile.lastModifiedRelativeS}s ago`);
 console.log("*********************************************************************\n");
 
-import(latestFile.fileName);
+await import(latestFile.fileName);
+
+const testResults = getTestInfo();
+if (testResults.failedTests.length > 0) {
+    console.log(`${testResults.failedTests.length} tests failed!!!`);
+    console.log(`Failed tests: [${testResults.failedTests.join(", ")}]`);
+} else {
+    console.log(`All ${testResults.numTests} tests passed!!!`);
+}

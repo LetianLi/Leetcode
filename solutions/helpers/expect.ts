@@ -1,5 +1,3 @@
-import { sleep } from "bun";
-
 const colors = {
     DEFAULT: "\x1B[39m",
     GREEN: "\x1B[32m",
@@ -12,6 +10,7 @@ const coloredResults = {
 }
 
 let counter = 1;
+let failedTests: number[] = [];
 
 export default async function test(expectedValue: any, functionToTest: (...args: any[]) => any, ...args: any[]): Promise<void> {
     const startTime = Bun.nanoseconds();
@@ -32,8 +31,16 @@ export default async function test(expectedValue: any, functionToTest: (...args:
     } else {
         console.log(`${counter}. ${coloredResults.FAIL}: Took ${timeTakenString}.`);
         console.log("Expected:", expectedValue);
-        console.log("Received", functionResult, "\n");
+        console.log("Received:", functionResult, "\n");
+        failedTests.push(counter);
     }
 
     counter++;
+}
+
+export function getTestInfo() {
+    return {
+        numTests: counter,
+        failedTests: failedTests
+    }
 }
