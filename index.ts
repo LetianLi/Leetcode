@@ -45,8 +45,8 @@ await import(latestFile.fileName);
 
 const testResults = getTestInfo();
 if (testResults.failedTests.length > 0) {
-    console.log(`${testResults.failedTests.length} tests failed!!!`);
-    console.log(`Failed tests: [${testResults.failedTests.join(", ")}]`);
+    console.log(`${testResults.failedTests.length}/${testResults.numTests} tests failed!!!`);
+    console.log(`Failed tests: ${testResults.failedTests.join(", ")}`);
 } else {
     console.log(`All ${testResults.numTests} tests passed!!!`);
 }
